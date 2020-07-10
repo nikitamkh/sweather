@@ -27,32 +27,42 @@
         </div>
     </div>
     <#if isRegisterForm >
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Password confirm:</label>
-        <div class="col-sm-6">
-            <input type="password" name="password2"
-                   class="form-control ${(password2Error??)?string('is-invalid', '')}"
-                   placeholder="Password"/>
-            <#if password2Error??>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Password confirm:</label>
+            <div class="col-sm-6">
+                <input type="password" name="password2"
+                       class="form-control ${(password2Error??)?string('is-invalid', '')}"
+                       placeholder="Password"/>
+                <#if password2Error??>
+                    <div class="invalid-feedback">
+                        ${password2Error}
+                    </div>
+                </#if>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-6">
+                <input type="email" name="email" <#if user??>${user.email}</#if>
+                       class="form-control  ${(emailError??)?string('is-invalid', '')}"
+                       placeholder="some@some.com"/>
+                <#if emailError??>
                 <div class="invalid-feedback">
-                    ${password2Error}
+                    ${emailError}
                 </div>
             </#if>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Email:</label>
-        <div class="col-sm-6">
-            <input type="email" name="email" <#if user??>${user.email}</#if>
-                   class="form-control  ${(emailError??)?string('is-invalid', '')}"
-                   placeholder="some@some.com"/>
-            <#if emailError??>
-            <div class="invalid-feedback">
-                ${emailError}
             </div>
-        </#if>
         </div>
-    </div>
+
+        <div>
+            <div class="g-recaptcha" data-sitekey="6LdOTswUAAAAAPwZr4HNg8j1Dv41CU6KNsInwUV-"></div>
+                <#if captchaError??>
+                    <div class="alert alert-danger" role="alert">
+                        ${captchaError}
+                    </div>
+                </#if>
+        </div>
+
     </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
     <#if !isRegisterForm><a href="/registration">Add new user</a></#if>
